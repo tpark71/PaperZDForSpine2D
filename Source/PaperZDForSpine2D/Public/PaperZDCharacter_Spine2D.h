@@ -15,7 +15,7 @@ class USpineSkeletonAnimationComponent;
 UCLASS()
 class PAPERZDFORSPINE2D_API APaperZDCharacter_Spine2D : public APaperZDCharacter
 {
-	GENERATED_BODY()
+	GENERATED_UCLASS_BODY()
 
 	/* Spine renderer component. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Spine2D", meta = (AllowPrivateAccess = "true"))
@@ -24,8 +24,5 @@ class PAPERZDFORSPINE2D_API APaperZDCharacter_Spine2D : public APaperZDCharacter
 	/* Skeleton animation component. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Spine2D", meta = (AllowPrivateAccess = "true"))
 	USpineSkeletonAnimationComponent* SpineAnimationComponent;
-
-public:
-	APaperZDCharacter_Spine2D();
 	   	
 };

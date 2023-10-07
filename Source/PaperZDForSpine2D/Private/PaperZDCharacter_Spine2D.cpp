@@ -7,7 +7,8 @@
 #include "AnimSequences/Players/PaperZDAnimPlayer.h"
 #include "PaperZDAnimationComponent.h"
 
-APaperZDCharacter_Spine2D::APaperZDCharacter_Spine2D() : Super()
+APaperZDCharacter_Spine2D::APaperZDCharacter_Spine2D(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer.DoNotCreateDefaultSubobject(APaperCharacter::SpriteComponentName))
 {
 	SpineRenderer = CreateDefaultSubobject<USpineSkeletonRendererComponent>(TEXT("SpineRenderer"));
 	SpineRenderer->SetupAttachment(RootComponent);
