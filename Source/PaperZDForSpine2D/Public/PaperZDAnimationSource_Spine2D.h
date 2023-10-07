@@ -24,6 +24,10 @@ class PAPERZDFORSPINE2D_API UPaperZDAnimationSource_Spine2D : public UPaperZDAni
 	/* The asset containing the skeleton and animation data. */
 	UPROPERTY(EditAnywhere, Category = "Animation")
 	USpineSkeletonDataAsset* SkeletonDataAsset;
+	
+	/* Preview Skin in Animation Source Editor*/ 
+	UPROPERTY(EditAnywhere, Category = "Animation", meta = (GetOptions = "GetSkinNames"))
+	FString PreviewSkin;
 
 	/* If true, the skeleton data cache is valid. */
 	UPROPERTY(Transient)
@@ -61,4 +65,8 @@ public:
 private:
 	/* Invalidates the cached data. */
 	void InvalidateCache();
+
+	/* Obtain a list of all the available skin names */
+	UFUNCTION()
+	TArray<FString> GetSkinNames() const;
 };
