@@ -2,6 +2,12 @@
 
 #include "PaperZDPlaybackHandle_Spine2D.h"
 #include "AnimSequences/Players/PaperZDAnimationPlaybackData.h"
+#include "SpineSkeletonRendererComponent.h"
+#include "SpineSkeletonAnimationComponent.h"
+#include "spine/Version.h"
+#if SPINE_MAJOR_VERSION >= 4 && SPINE_MINOR_VERSION >= 2
+#include "spine/Physics.h"
+#endif
 
 void UPaperZDPlaybackHandle_Spine2D::UpdateRenderPlayback(UPrimitiveComponent* RenderComponent, const FPaperZDAnimationPlaybackData& PlaybackData, bool bIsPreviewPlayback /* = false */)
 {
@@ -46,8 +52,16 @@ void UPaperZDPlaybackHandle_Spine2D::UpdateRenderPlayback(UPrimitiveComponent* R
 
 			//Update the skeleton
 			spine::Skeleton* Skeleton = AnimationComponent->GetSkeleton();
+			Skeleton->update(DeltaTime);
 			AnimationComponent->GetAnimationState()->apply(*Skeleton);
+
+#if SPINE_MAJOR_VERSION >= 4 && SPINE_MINOR_VERSION >= 2
+			AnimationComponent->BeforeUpdateWorldTransform.Broadcast(AnimationComponent);
+			Skeleton->updateWorldTransform(spine::Physics::Physics_Update);
+			AnimationComponent->AfterUpdateWorldTransform.Broadcast(AnimationComponent);
+#elif 
 			Skeleton->updateWorldTransform();
+#endif
 
 			//Finally update the renderer
 			SpineRender->UpdateRenderer(AnimationComponent);
